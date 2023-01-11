@@ -13,6 +13,8 @@
 # include <stdio.h>
 
 //number case
+int     ft_check_int(char *str);
+int     ft_check_order(t_list *lst);
 void    ft_case_3(t_list **lst);
 
 //showstack

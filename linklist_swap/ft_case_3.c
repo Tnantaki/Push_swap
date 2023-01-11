@@ -6,9 +6,9 @@ void    ft_case_3(t_list **lst)
     int second; 
     int last; 
 
-    first = (*lst)->content;
-    second = ((*lst)->next)->content;
-    last = (ft_lstlast(*lst))->content;
+    first = *(int *)((*lst)->content);
+    second = *(int *)(((*lst)->next)->content);
+    last = *(int *)(ft_lstlast(*lst)->content);
     if (first > second && first < last && second < last)
         ft_sa(lst);
     else if (first > second && first > last && second > last)
