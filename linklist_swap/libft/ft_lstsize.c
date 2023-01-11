@@ -28,22 +28,3 @@ int	ft_lstsize(t_list *lst)
 		size++;
 	return (size);
 }
-/*
-#include <stdio.h>
-int	main(void)
-{
-	t_list	*head;
-	int size;
-	char *str1 = "Pepo01";
-	char *str2 = "Pepo02";
-	char *str3 = "Pepo03";
-	char *str4 = "Pepo04";
-
-	head = ft_lstnew(str1);
-	ft_lstadd_back(&head, ft_lstnew(str2));
-	ft_lstadd_back(&head, ft_lstnew(str3));
-	ft_lstadd_back(&head, ft_lstnew(str4));
-	size = ft_lstsize(head);
-	printf("size :%d\n", size);
-}
-*/
