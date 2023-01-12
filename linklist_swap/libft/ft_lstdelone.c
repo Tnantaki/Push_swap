@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tnantaki <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 16:03:33 by tnantaki          #+#    #+#             */
-/*   Updated: 2022/09/22 10:55:49 by tnantaki         ###   ########.fr       */
+/*   Created: 2023/01/12 22:58:17 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/01/12 22:58:24 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,26 +22,3 @@ void	ft_lstdelone(t_list *lst, void (*del)(void *))
 		free(lst);
 	}
 }
-/*
-void	ft_delcont(void *content)
-{
-	// free(content);
-}
-// the reason we free content because of in case user use
-// malloc to malloc content.
-
-int	main(void)
-{
-	t_list *head;
-	// printf("%lu\n", sizeof(t_list));
-	char *str1 = "Pepo01";
-	head = ft_lstnew(str1);
-	printf("%s \n", head->content);
-	// printf("%p\n", head);
-	// printf("%lu\n", sizeof(head->content));
-	ft_lstdelone(head, ft_delcont);
-	printf("%s \n", head->content);
-	// printf("%p\n", head);
-	// printf("%lu\n", sizeof(head->content));
-}
-*/

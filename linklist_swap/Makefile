@@ -9,9 +9,9 @@ RM = rm -f
 LIBFT_PATH = libft/
 ACTIONS_PATH = actions/
 
-SWAP_SRCS = pushswap.c ft_check_err.c ft_case_3.c ft_showstack.c
+SWAP_SRCS = pushswap.c ft_utils.c ft_check_err.c ft_case_5.c ft_showstack.c
 
-LIBFT_SRCS = ft_atoi.c ft_isdigit.c ft_strlen.c ft_putstr_fd.c ft_putendl_fd.c\
+LIBFT_SRCS = ft_atoi.c ft_isdigit.c ft_strlen.c ft_putstr_fd.c\
 			ft_split.c ft_lstnew.c ft_lstadd_front.c ft_lstadd_back.c\
 			ft_lstlast.c ft_lstbefore_last.c ft_delcont.c ft_lstdelone.c\
 			ft_lstclear.c ft_lstsize.c

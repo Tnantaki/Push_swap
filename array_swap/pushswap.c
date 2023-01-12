@@ -1,68 +1,79 @@
-#include "pushswap.h"
+#include "pushswapft.h"
 
-static void ft_swap(int *a, int *b)
+void ft_double_free(char **ptr)
 {
-    int tmp;
+	int	i;
 
-    tmp = *a;
-    *a = *b;
-    *b = tmp;
+	i = 0;
+	while (ptr[i])
+	{
+		free(ptr[i]);
+		i++;
+	}
+	free(ptr);
 }
 
-void ft_sa(int *a)
+void ft_prterr(t_list *lst, char **arg, int *tmp_nb)
 {
-    ft_swap(&(a[0]), &(a[1]));
-    ft_putendl_fd("sa", 1);
+	if (tmp_nb)
+		free(tmp_nb);
+	if (arg)
+		ft_double_free(arg);
+	ft_lstclear(&lst, ft_delcont);
+	ft_putendl_fd("Error", 2);
+	exit(0);
 }
 
-void ft_ra(int *a, int last)
+t_list *ft_lstnum(int ac, char **av)
 {
-    ft_swap(&(a[0]), &(a[last]));
-    ft_putendl_fd("sa", 1);
-}
+	t_list	*lst;
+	char	**arg;
+	int		i;
+	int		j;
+	int		*tmp_nb;
 
-void ft_3numb(int *a)
-{
-    if (a[0] > a[1] && a[2])
+	i = 1;
+	lst = NULL;
+	while (i < ac)
+	{
+		j = 0;
+		arg = ft_split(av[i], ' ');
+		while (arg[j])
+		{
+			tmp_nb = (int *)malloc(sizeof(int));
+			if (!(ft_check_int(arg[j])) || !tmp_nb)
+				ft_prterr(lst, arg, tmp_nb);
+			*tmp_nb = ft_atoi(arg[j]);
+			ft_lstadd_back(&lst, ft_lstnew(tmp_nb));
+			j++;
+		}
+		ft_double_free(arg);
+		i++;
+	}
+	return (lst);
 }
 
 int main(int ac, char **av)
 {
-    int i;
-    int count;
-    t_list    stack_a;
+	t_list	*stack_a;
+	t_list	*stack_b;
+	t_list	*stack;
+	t_info	info;
 
-
-    //count = ac - 1;
-    i = 0;
-    while (i < ac - 1)
-    {
-        if (i == 0)
-            stack_a = ft_lstnew(ft_atoi(av[i]))
-        else
-            ft_lstadd_back(stack_a, ft_lstnew(ft_atoi(av[i])));
-        i++;
-    }
-    // int j = 0;
-    // while (j < i)
-    // {
-    //     printf("[%d]:%d\n", j, stack_a[j]);
-    //     j++;
-    // }
-    // int k = 0;
-    // while (k < i)
-    // {
-    //     if (stack_a[k] < stack_a[k + 1])
-    //         stack_a[k];
-    // }
-    // while (i + 1 < ac)
-    // {
-    //     nb = ft_atoi(av[i++]);
-    //     ft_lstadd_back(&head, ft_lstnew(ft_atoi(av[i++])));
-    // }
-    // while (*head)
-    // {
-    //     printf("[%d]:%s\n", head->content);
-    //     head = head->next;
-    // }
+	if (ac == 1)
+		exit(0);
+	stack_a = ft_lstnum(ac, av);
+	if (!(ft_check_order(stack_a)))
+		ft_prterr(stack_a, NULL, NULL);
+	// show
+	stack = ft_dupstack(stack_a);
+	// show
+	info.size = ft_lstsize(stack_a);
+	stack_b = NULL;
+	if (info.size <= 5)
+		ft_case_5(&stack_a, &stack_b, size);
+	// show
+	ft_showstack(stack, stack_a);
+	// show
+	ft_lstclear(&stack_a, ft_delcont);
 }

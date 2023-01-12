@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_check_err.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/01/12 22:51:57 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/01/12 22:51:58 by tnantaki         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "pushswapft.h"
 
 static int	ft_check_max(char *str)
 {
+	long long	nb;
 	int			i;
 	int			negative;
-	long long	nb;
 
 	i = 0;
 	nb = 0;
@@ -42,21 +54,8 @@ int	ft_check_int(char *str)
 	return (1);
 }
 
-int	ft_check_order(t_list *lst)
+int	ft_check_unique(t_list *lst)
 {
-	// int	i;
-	// int	*num;
-	// int	size;
-
-	// i = 0;
-	// size = ft_lstsize(lst);
-	// num = (int *)malloc(sizeof(int) * size);
-	// while (lst)
-	// {
-	// 	num[i++] = *(int *)(lst->content);
-	// 	lst = lst->next;
-	// 	printf("num[%d]:%d\n", i, num[i - 1]);
-	// }
 	t_list	*tmp;
 
 	while (lst->next)
@@ -71,4 +70,43 @@ int	ft_check_order(t_list *lst)
 		lst = lst->next;
 	}
 	return (1);
+}
+
+int	ft_check_order(t_list *lst)
+{
+	t_list	*tmp;
+
+	tmp = lst->next;
+	while (tmp)
+	{
+//		printf("lst:%d  = tmp:%d\n", *(int *)lst->content , *(int *)tmp->content);
+		if (*(int *)lst->content > *(int *)tmp->content)
+			return (1);
+		tmp = tmp->next;
+		lst = lst->next;
+	}
+	return (0);
+}
+
+void ft_check_err(t_list *lst, t_info inf)
+{
+	if (inf.size == 1)
+	{
+		//printf("You have only one number\n");
+		ft_lstclear(&lst, ft_delcont);
+		exit(0);
+	}
+	if (!(ft_check_unique(lst)))
+	{
+		//printf("The number not unique\n");
+		ft_lstclear(&lst, ft_delcont);
+		ft_putstr_fd("Error\n", 2);
+		exit(0);
+	}
+	if (!(ft_check_order(lst)))
+	{
+	//	printf("The number has descending order\n");
+		ft_lstclear(&lst, ft_delcont);
+		exit(0);
+	}
 }
