@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*   5_utils.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 22:51:29 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/01/12 22:51:32 by tnantaki         ###   ########.fr       */
+/*   Created: 2023/02/13 19:53:57 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/02/13 19:53:59 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,8 @@ void	ft_double_free(char **ptr)
 	free(ptr);
 }
 
-void	ft_prterr(t_pushswap *pw, int err)
+void	ft_prterr(void)
 {
-	if (err == 1)
-		printf("The argument must be digits.\n");
-	if (err == 2)
-		printf("The argument must not be the same number.\n");
-	pw->arg = NULL;
 	write(2, "Error\n", 6);
-	exit(1);
+	exit(0);
 }

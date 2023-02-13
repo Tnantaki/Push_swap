@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_check_err.c                                     :+:      :+:    :+:   */
+/*   2_check_arg.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 22:51:57 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/01/12 22:51:58 by tnantaki         ###   ########.fr       */
+/*   Created: 2023/02/13 19:53:39 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/02/13 19:53:40 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@ static int	ft_isint(char *str)
 	i = 0;
 	nb = 0;
 	negative = 1;
-	if (!str)
-		return (0);
 	while (str[i] && (ft_isdigit(str[i]) || str[i] == '+' || str[i] == '-'))
 		i++;
 	if (str[i] != '\0')
@@ -33,6 +31,8 @@ static int	ft_isint(char *str)
 		if (str[i++] == '-')
 			negative = -1;
 	}
+	if (str[i] == '\0')
+		return (0);
 	while (ft_isdigit(str[i]) && nb <= 2147483648)
 		nb = nb * 10 + (str[i++] - '0');
 	nb = nb * negative;
@@ -59,7 +59,7 @@ void	ft_check_integer(int ac, char **av, t_pushswap *pw)
 			if (!ft_isint(pw->arg[j++]))
 			{
 				ft_double_free(pw->arg);
-				ft_prterr(pw, DIGIT_ERR);
+				ft_prterr();
 			}
 			pw->size++;
 		}
@@ -111,7 +111,10 @@ void	ft_check_unique(t_pushswap *pw)
 		while (j < pw->size)
 		{
 			if (tmp == pw->nb[j])
-				ft_prterr(pw, UNIQUE_ERR);
+			{
+				free(pw->nb);
+				ft_prterr();
+			}
 			j++;
 		}
 		i++;
@@ -131,6 +134,6 @@ void	ft_check_ascending_order(t_pushswap *pw)
 			return ;
 		i++;
 	}
-	printf("Ascending Order Argument.\n");//Don't forget to delete
+	free(pw->nb);
 	exit(0);
 }

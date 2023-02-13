@@ -26,7 +26,6 @@ typedef struct s_list
 int		ft_isdigit(int c);
 size_t	ft_strlen(const char *str);
 int		ft_atoi(const char *str);
-void	ft_putstr_fd(char *s, int fd);
 char	**ft_split(char *s, char c);
 
 //Bonus

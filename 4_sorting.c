@@ -1,47 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_case_5.c                                        :+:      :+:    :+:   */
+/*   4_sorting.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tnantaki <tnantaki@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/01/12 22:52:02 by tnantaki          #+#    #+#             */
-/*   Updated: 2023/01/12 22:52:03 by tnantaki         ###   ########.fr       */
+/*   Created: 2023/02/13 19:53:50 by tnantaki          #+#    #+#             */
+/*   Updated: 2023/02/13 19:53:52 by tnantaki         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_find_min(t_list *lst)
+static int	ft_find_maxnb_i(t_list *lst)
 {
-	int		i;
-	int		min_i;
-	t_list	*tmp;
+	int	i;
+	int	maxnb_i;
+	int	tmp;
 
 	i = 1;
-	min_i = 0;
-	tmp = lst;
+	maxnb_i = 0;
+	tmp = *(int *)lst->content;
 	lst = lst->next;
 	while (lst)
 	{
-		if (*(int *)tmp->content > *(int *)lst->content)
+		if (tmp > *(int *)lst->content)
 		{
-			tmp = lst;
-			min_i = i;
+			tmp = *(int *)lst->content;
+			maxnb_i = i;
 		}
 		lst = lst->next;
 		i++;
 	}
-	return (min_i);
+	return (maxnb_i);
 }
-
-// void	ft_findpos_stk_a(t_pushswap *pw)
-// {
-// 	pw->size_a = ft_lstsize(pw->stk_a);
-// 	pw->top = *(int *)(pw->stk_a->content);
-// 	pw->vic = *(int *)(pw->stk_a->next->content);
-// 	pw->bot = *(int *)(ft_lstlast(pw->stk_a)->content);
-// }
 
 void	ft_case_3(t_pushswap *pw)
 {
@@ -75,15 +67,15 @@ void	ft_case_5(t_pushswap *pw)
 	while (i < pw->size)
 	{
 		pw->size_a = ft_lstsize(pw->stk_a);
-		pw->min_i = ft_find_min(pw->stk_a);
-		if (pw->min_i <= pw->size_a / 2)
+		pw->maxnb_i = ft_find_maxnb_i(pw->stk_a);
+		if (pw->maxnb_i <= pw->size_a / 2)
 		{
-			while (pw->min_i--)
+			while (pw->maxnb_i--)
 				ft_ra(&pw->stk_a);
 		}
 		else
 		{
-			while (pw->min_i++ < pw->size_a)
+			while (pw->maxnb_i++ < pw->size_a)
 				ft_rra(&pw->stk_a);
 		}
 		ft_pb(&pw->stk_a, &pw->stk_b);
@@ -94,14 +86,26 @@ void	ft_case_5(t_pushswap *pw)
 		ft_pa(&pw->stk_a, &pw->stk_b);
 }
 
-void	ft_sorting(t_pushswap *pw)
+void	ft_radix_sort(t_pushswap *pw)
 {
-	if (pw->size == 2)
-		ft_sa(&pw->stk_a);
-	else if (pw->size == 3)
-		ft_case_3(pw);
-	else if (pw->size == 4)
-		ft_case_100(pw)
-	else
-		ft_case_5(pw);
+	int	i;
+	int	bit;
+
+	bit = 0;
+	while ((pw->size >> bit) > 0)
+	{
+		i = 0;
+		while (i++ < pw->size)
+		{
+			if (!(((*(int *)pw->stk_a->content >> bit) & 1) == 1))
+				ft_pb(&pw->stk_a, &pw->stk_b);
+			else
+				ft_ra(&pw->stk_a);
+		}
+		pw->size_b = ft_lstsize(pw->stk_b);
+		while (pw->size_b--)
+			ft_pa(&pw->stk_a, &pw->stk_b);
+		// ft_showstack(pw->stk_a, pw->stk_b); // for show
+		bit++;
+	}
 }
