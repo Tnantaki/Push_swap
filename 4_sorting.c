@@ -12,14 +12,14 @@
 
 #include "push_swap.h"
 
-static int	ft_find_maxnb_i(t_list *lst)
+int	ft_find_minnb_i(t_list *lst)
 {
 	int	i;
-	int	maxnb_i;
+	int	minnb_i;
 	int	tmp;
 
 	i = 1;
-	maxnb_i = 0;
+	minnb_i = 0;
 	tmp = *(int *)lst->content;
 	lst = lst->next;
 	while (lst)
@@ -27,32 +27,35 @@ static int	ft_find_maxnb_i(t_list *lst)
 		if (tmp > *(int *)lst->content)
 		{
 			tmp = *(int *)lst->content;
-			maxnb_i = i;
+			minnb_i = i;
 		}
 		lst = lst->next;
 		i++;
 	}
-	return (maxnb_i);
+	return (minnb_i);
 }
 
 void	ft_case_3(t_pushswap *pw)
 {
-	pw->size_a = ft_lstsize(pw->stk_a);
-	pw->top = *(int *)(pw->stk_a->content);
-	pw->vic = *(int *)(pw->stk_a->next->content);
-	pw->bot = *(int *)(ft_lstlast(pw->stk_a)->content);
-	if (pw->top > pw->vic && pw->top > pw->bot && pw->vic > pw->bot)
+	int	top;
+	int	mid;
+	int	bot;
+
+	top = *(int *)(pw->stk_a->content);
+	mid = *(int *)(pw->stk_a->next->content);
+	bot = *(int *)(ft_lstlast(pw->stk_a)->content);
+	if (top > mid && top > bot && mid > bot)
 	{
 		ft_sa(&pw->stk_a);
 		ft_rra(&pw->stk_a);
 	}
-	else if (pw->top > pw->vic && pw->top > pw->bot && pw->vic < pw->bot)
+	else if (top > mid && top > bot && mid < bot)
 		ft_ra(&pw->stk_a);
-	else if (pw->top > pw->vic && pw->top < pw->bot)
+	else if (top > mid && top < bot)
 		ft_sa(&pw->stk_a);
-	else if (pw->top > pw->bot)
+	else if (top > bot)
 		ft_rra(&pw->stk_a);
-	else if (pw->vic > pw->bot)
+	else if (mid > bot)
 	{
 		ft_sa(&pw->stk_a);
 		ft_ra(&pw->stk_a);
@@ -67,15 +70,15 @@ void	ft_case_5(t_pushswap *pw)
 	while (i < pw->size)
 	{
 		pw->size_a = ft_lstsize(pw->stk_a);
-		pw->maxnb_i = ft_find_maxnb_i(pw->stk_a);
-		if (pw->maxnb_i <= pw->size_a / 2)
+		pw->minnb_i = ft_find_minnb_i(pw->stk_a);
+		if (pw->minnb_i <= pw->size_a / 2)
 		{
-			while (pw->maxnb_i--)
+			while (pw->minnb_i--)
 				ft_ra(&pw->stk_a);
 		}
 		else
 		{
-			while (pw->maxnb_i++ < pw->size_a)
+			while (pw->minnb_i++ < pw->size_a)
 				ft_rra(&pw->stk_a);
 		}
 		ft_pb(&pw->stk_a, &pw->stk_b);

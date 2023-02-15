@@ -31,11 +31,22 @@ typedef struct s_pushswap
 	int		*nb;
 	int		*arr;
 	int		size;
-	int		top;
-	int		vic;
-	int		bot;
+	int		minnb_i;
 	int		maxnb_i;
 }	t_pushswap;
+
+typedef struct s_chunk
+{
+	int		chunk_cap;// How many number of chunks
+	int		chunk;// chunk number
+	int		*range;// The range of number input
+	int		*range_half; //The half range of number input
+	int		i;// To store index
+	int		tmp;
+	int		max;
+	int		tob_i;
+	int		bot_i;
+}	t_chunk;
 
 //Check argument
 void	ft_check_integer(int ac, char **av, t_pushswap *pw);
@@ -55,5 +66,8 @@ void	ft_prterr(void);
 //showstack
 t_list	*ft_dupstack(t_list *lst);
 void	ft_showstack(t_list *tmp, t_list *result);
+//quick sort
+int		ft_find_maxnb_i(t_list *lst);
+void	ft_quick_sort(t_pushswap *pw);
 
 #endif

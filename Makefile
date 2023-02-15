@@ -9,14 +9,14 @@ RM = rm -f
 LIBFT_PATH = libft/
 ACTIONS_PATH = actions/
 
-SWAP_SRCS = 1_push_swap.c 2_check_arg.c 3_lst_num.c 4_sorting.c 5_utils.c ft_showstack.c
+SWAP_SRCS = 1_push_swap.c 2_check_arg.c 3_lst_num.c 4_sorting.c 5_utils.c ft_showstack.c quick_sort.c
 
 LIBFT_SRCS = ft_atoi.c ft_isdigit.c ft_strlen.c ft_split.c\
 			ft_lstnew.c ft_lstadd_front.c ft_lstadd_back.c\
 			ft_lstlast.c ft_lstbefore_last.c ft_delcont.c\
 			ft_lstdelone.c ft_lstclear.c ft_lstsize.c
 
-ACTIONS_SRCS = ft_pop2top.c ft_swap_2top.c ft_swap_bot2top.c ft_swap_top2bot.c
+ACTIONS_SRCS = ft_swap.c ft_rotate.c ft_reverse_rotate.c ft_push.c
 
 SRCS = $(SWAP_SRCS)\
 	   $(addprefix $(ACTIONS_PATH), $(ACTIONS_SRCS))\

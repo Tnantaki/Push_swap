@@ -20,8 +20,10 @@ static void	ft_sorting(t_pushswap *pw)
 		ft_case_3(pw);
 	else if (pw->size <= 5)
 		ft_case_5(pw);
+	// else
+	// 	ft_radix_sort(pw);
 	else
-		ft_radix_sort(pw);
+		ft_quick_sort(pw);
 }
 
 int	main(int ac, char **av)
