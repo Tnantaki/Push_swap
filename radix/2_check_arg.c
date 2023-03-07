@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 static int	ft_isint(char *str)
 {
@@ -54,13 +55,12 @@ void	ft_check_integer(int ac, char **av, t_pushswap *pw)
 		pw->arg = ft_split(av[i], ' ');
 		if (!pw->arg)
 			exit(1);
+		if (!(pw->arg[0]))
+			ft_dbfree_prterr(pw->arg);
 		while (pw->arg[j])
 		{
 			if (!ft_isint(pw->arg[j++]))
-			{
-				ft_double_free(pw->arg);
-				ft_prterr();
-			}
+				ft_dbfree_prterr(pw->arg);
 			pw->size++;
 		}
 		ft_double_free(pw->arg);

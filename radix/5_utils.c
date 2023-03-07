@@ -30,3 +30,9 @@ void	ft_prterr(void)
 	write(2, "Error\n", 6);
 	exit(0);
 }
+
+void	ft_dbfree_prterr(char **ptr)
+{
+	ft_double_free(ptr);
+	ft_prterr();
+}

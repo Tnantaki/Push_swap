@@ -47,5 +47,6 @@ void	ft_radix_sort(t_pushswap *pw);
 //utils
 void	ft_double_free(char **ptr);
 void	ft_prterr(void);
+void	ft_dbfree_prterr(char **ptr);
 
 #endif
